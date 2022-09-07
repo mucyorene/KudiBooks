@@ -36,7 +36,7 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   // This widget is the root of your application.
-  var mode = ThemeMode.light;
+  var mode = ThemeMode.system;
 
   @override
   Widget build(BuildContext context) {

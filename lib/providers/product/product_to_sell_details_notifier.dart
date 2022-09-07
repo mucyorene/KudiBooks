@@ -21,6 +21,7 @@ class ProductToSellDetailsNotifier extends StateNotifier<NetworkInfo<ItemToSellD
     state=NetworkInfo(networkStatus: NetworkStatus.loading);
    try{
      Response response = await _dio.get("${DioServices.baseUrl}app/product-to-sell/edit/$id",options: Options(headers: mainHeader));
+     debugPrint("Product details response: ${response.data}");
      var productDetails = ItemToSellDetails.fromJson(response.data);
      var itemDetails = NetworkInfo<ItemToSellDetails>(networkStatus: NetworkStatus.success, statusCode: 200);
      state=itemDetails;
