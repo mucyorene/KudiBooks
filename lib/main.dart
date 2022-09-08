@@ -16,7 +16,7 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   debugPrint("Kigali Tokens: ${Hive.box('tokens').get('tokens')}");
   runApp(EasyLocalization(
-      startLocale: const Locale('fr', 'FR'),
+      startLocale: const Locale('us', 'US'),
       fallbackLocale: const Locale('en', 'US'),
       path: 'assets/translations',
       assetLoader: const RootBundleAssetLoader(),

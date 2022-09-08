@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
+import '../../models/utilities/network_info.dart';
 import '../../providers/product/providers.dart';
 import 'classes/sliver_delegate_search.dart';
 import 'widget/action_card.dart';
@@ -22,10 +24,13 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    ref.read(productToSellDetailsProvider.notifier).productItemDetails(widget.id);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(productToSellDetailsProvider.notifier).productItemDetails(widget.id);
+    });
   }
   @override
   Widget build(BuildContext context) {
+    var productDetails = ref.watch(productToSellDetailsProvider);
     List<Widget> listOfSmallCards = [
       ActionCard(
         actionClick: () => context.pushNamed('sell'),
@@ -34,7 +39,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
           color: Colors.white,
         ),
         cardColor: const Color(0xff157253),
-        title: 'Sell',
+        title: const Text( "dashboard.home.sell",).tr(),
       ),
       ActionCard(
         actionClick: () => context.goNamed('inventoryDeduction'),
@@ -43,7 +48,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
           color: Colors.white,
         ),
         cardColor: const Color(0xff157253),
-        title: 'Sell',
+        title: const Text( "dashboard.home.sell",).tr(),
       ),
       ActionCard(
         actionClick: () => context.goNamed('inventoryDeduction'),
@@ -52,7 +57,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
           color: Colors.white,
         ),
         cardColor: const Color(0xff157253),
-        title: 'Sell',
+        title: const Text( "dashboard.home.sell",).tr(),
       ),
       ActionCard(
         actionClick: () => context.goNamed('inventoryDeduction'),
@@ -61,33 +66,36 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
           color: Colors.white,
         ),
         cardColor: const Color(0xff157253),
-        title: 'Sell',
+        title: const Text( "dashboard.home.sell",).tr(),
       ),
     ];
     return Scaffold(
-      body: NestedScrollView(
+      body: productDetails.networkStatus == NetworkStatus.loading?
+      Center(child: CircularProgressIndicator(color: Colors.green.shade400),):
+      productDetails.networkStatus == NetworkStatus.success?
+      NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
               actions: [
                 PopupMenuButton(itemBuilder: (contexts) {
                   return [
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       child: ListTile(
-                        title: Text("Edit"),
-                        leading: Icon(Icons.edit_outlined),
+                        onTap: (){
+                          context.push('/createProduct/${widget.id}');
+                        },
+                        title: const Text("Edit"),
                       ),
                     ),
                     const PopupMenuItem(
                       child: ListTile(
                         title: Text("Setting"),
-                        leading: Icon(Icons.settings),
                       ),
                     ),
                     const PopupMenuItem(
                       child: ListTile(
                         title: Text("Help"),
-                        leading: Icon(Icons.help_outline),
                       ),
                     ),
                   ];
@@ -140,7 +148,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                       ),
                     ),
                     Flexible(
-                      child: Text("Product Name",
+                      child: Text("${productDetails.data?.productSelectedDetails?.name}",
                           style: const TextStyle(
                               fontSize: 24, fontWeight: FontWeight.bold)),
                     ),
@@ -148,10 +156,9 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                       height: 10,
                     ),
                     Flexible(
-                      child: Text("Product Note",
+                      child: Text("${productDetails.data?.productSelectedDetails?.note}",
                         textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(color: Colors.grey, fontSize: 13),
+                        style: const TextStyle(color: Colors.grey, fontSize: 13),
                       ),
                     )
                   ],
@@ -176,7 +183,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                           color: Color(0xff157253),
                         ),
                         cardColor: Theme.of(context).scaffoldBackgroundColor,
-                        title: 'Sell',
+                        title: const Text( "dashboard.home.sell",).tr(),
                         isBordered: true,
                       ),
                       ActionCard(
@@ -186,7 +193,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                           Icons.check_circle_outline_sharp,
                           color: Colors.green,
                         ),
-                        title: 'Used',
+                        title: const Text( "Used",),
                         isBordered: true,
                         cardColor: Theme.of(context).scaffoldBackgroundColor,
                       ),
@@ -198,7 +205,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                           Icons.remove_circle_outline,
                           color: Color(0xffA70C4A),
                         ),
-                        title: 'Damaged',
+                        title: const Text( "Damaged",),
                         isBordered: true,
                       ),
                       ActionCard(
@@ -209,7 +216,7 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
                           Icons.edit_outlined,
                           color: Colors.amber,
                         ),
-                        title: 'Edit',
+                        title: const Text( "Edit",),
                         isBordered: true,
                       ),
                     ]),
@@ -312,7 +319,8 @@ class _ProductDetailsState extends ConsumerState<ProductDetails> {
             ),
           ),
         ),
-      ),
+      ):
+      Center(child: Text(productDetails.getErrorMessage),),
     );
   }
 }

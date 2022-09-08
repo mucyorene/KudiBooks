@@ -151,8 +151,11 @@ GoRouter router = GoRouter(
           builder: (context, state) => const ChartAccount()),
       GoRoute(
           name: 'newProduct',
-          path: '/createProduct',
-          builder: (context, state) => const NewProduct()),
+          path: '/createProduct/:id',
+          builder: (context, state){
+            int id = int.parse(state.params["id"].toString());
+            return NewProduct(id: id,);
+          }),
       GoRoute(
           name: 'screenProducts',
           path: '/productScreens',

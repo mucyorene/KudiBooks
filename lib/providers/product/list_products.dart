@@ -28,7 +28,6 @@ class RetrieveProductNotifier extends StateNotifier<NetworkInfo<List<RetrievePro
       for(var productItem in productListData.items??[]){
         allProductsToSell.add(productItem);
       }
-      debugPrint("This is product list: ${productListData.items?.length}");
       var info = NetworkInfo<List<RetrieveProductModel>>(networkStatus: NetworkStatus.success, statusCode: 200, data: allProductsToSell);
       state=info;
     } on DioError catch(e){

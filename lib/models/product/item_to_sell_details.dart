@@ -1,51 +1,60 @@
 class ItemToSellDetails {
-  AccountSelectedDetails accountSelected;
-  InventoryExpenseAccountSelectedDetails inventoryExpenseDetails;
-  ProductSelectedDetails productSelectedDetails;
-  SubUnitDetails subUnitDetails;
+  AccountSelectedDetails? accountSelected;
+  InventoryExpenseAccountSelectedDetails? inventoryExpenseAccountSelected;
+  ProductSelectedDetails? productSelectedDetails;
+  SubUnitDetails? subUnitDetails;
 
-  ItemToSellDetails({
-    required this.accountSelected,
-    required this.inventoryExpenseDetails,
-    required this.productSelectedDetails,
-    required this.subUnitDetails
-  });
+  ItemToSellDetails(
+      {this.accountSelected,
+      this.inventoryExpenseAccountSelected,
+      this.productSelectedDetails,
+      this.subUnitDetails});
 
-  factory ItemToSellDetails.fromJson(Map<String, dynamic> json){
-    return ItemToSellDetails(accountSelected: AccountSelectedDetails.fromJson(json["accountSelected"]),
-        inventoryExpenseDetails: InventoryExpenseAccountSelectedDetails.fromJson(json["inventoryExpenseDetails"]),
-        productSelectedDetails: ProductSelectedDetails.fromJson(json["productSelectedDetails"]),
-        subUnitDetails: SubUnitDetails.fromJson(json["subUnitDetails"]));
+  factory ItemToSellDetails.fromJson(Map<String, dynamic> json) {
+    return ItemToSellDetails(
+        accountSelected: AccountSelectedDetails.fromJson(json["accountSelected"]),
+        inventoryExpenseAccountSelected: InventoryExpenseAccountSelectedDetails.fromJson(json["inventoryExpenseAccountSelected"]),
+        productSelectedDetails: ProductSelectedDetails.fromJson(json["productSelected"]),
+        subUnitDetails: SubUnitDetails.fromJson(json["subUnitDetails"])
+    );
   }
 }
 
 class SubUnitDetails {
-  int? soldInSubUnits;
-  String? subUnitName;
-  double? subUnitPrice;
-  SelectedUnitOfMeasure? selectedUnitOfMeasure;
+  int soldInSubUnits;
+  String subUnitName;
+  int subUnitPrice;
+  SelectedUnitOfMeasure selectedUnitOfMeasure;
 
-  SubUnitDetails({this.soldInSubUnits,
-    this.subUnitName,
-    this.subUnitPrice,
-    this.selectedUnitOfMeasure});
+  SubUnitDetails(
+      {required this.soldInSubUnits,
+      required this.subUnitName,
+      required this.subUnitPrice,
+      required this.selectedUnitOfMeasure});
 
-  factory SubUnitDetails.fromJson(Map<dynamic, dynamic> json) {
-    return SubUnitDetails();
+  factory SubUnitDetails.fromJson(Map<String, dynamic> json) {
+    print("Here one $json");
+    return SubUnitDetails(
+        soldInSubUnits: json["soldInSubUnits"],
+        subUnitName: json["subUnitName"],
+        subUnitPrice: json["subUnitPrice"],
+        selectedUnitOfMeasure:SelectedUnitOfMeasure.fromJson(json["selectedUnitOfMeasure"]));
   }
 }
 
 class SelectedUnitOfMeasure {
-  int id;
-  int companyUnitOfMeasureID;
-  String name;
+  int? id;
+  int? companyUnitOfMeasureID;
+  String? name;
 
-  SelectedUnitOfMeasure({required this.id,
-    required this.companyUnitOfMeasureID,
-    required this.name});
+  SelectedUnitOfMeasure(
+      {required this.id,
+      required this.companyUnitOfMeasureID,
+      required this.name});
 
-  factory SelectedUnitOfMeasure.fromJson(Map<dynamic, dynamic> json) {
-    return SelectedUnitOfMeasure(id: json["id"],
+  factory SelectedUnitOfMeasure.fromJson(Map<String, dynamic> json) {
+    return SelectedUnitOfMeasure(
+        id: json["id"],
         companyUnitOfMeasureID: json["companyUnitOfMeasureID"],
         name: json["name"]);
   }
@@ -53,19 +62,19 @@ class SelectedUnitOfMeasure {
 
 class ProductSelectedDetails {
   String name;
-  int price;
-  String description;
-  bool isInventory;
-  String note;
+  String? price;
+  String? description;
+  int? isInventory;
+  String? note;
 
-  ProductSelectedDetails({
-    required this.name,
-    required this.price,
-    required this.description,
-    required this.isInventory,
-    required this.note});
+  ProductSelectedDetails(
+      {required this.name,
+      required this.price,
+      required this.description,
+      required this.isInventory,
+      required this.note});
 
-  factory ProductSelectedDetails.fromJson(Map<dynamic, dynamic> json){
+  factory ProductSelectedDetails.fromJson(Map<dynamic, dynamic> json) {
     return ProductSelectedDetails(
         name: json["name"],
         price: json["price"],
@@ -76,25 +85,24 @@ class ProductSelectedDetails {
 }
 
 class InventoryExpenseAccountSelectedDetails {
-  int id;
-  String name;
+  int? id;
+  String? name;
 
-  InventoryExpenseAccountSelectedDetails({
-    required this.id, required this.name
-  });
+  InventoryExpenseAccountSelectedDetails(
+      {required this.id, required this.name});
 
-  factory InventoryExpenseAccountSelectedDetails.fromJson(
-      Map<dynamic, dynamic> json) =>
-      InventoryExpenseAccountSelectedDetails(id: json["id"], name: json["name"]);
+  factory InventoryExpenseAccountSelectedDetails.fromJson(Map<String, dynamic>? json) {
+    return InventoryExpenseAccountSelectedDetails( id: json?["id"], name: json?["name"]);
+  }
 }
 
 class AccountSelectedDetails {
-  int id;
-  String name;
+  int? id;
+  String? name;
 
   AccountSelectedDetails({required this.id, required this.name});
 
-  factory AccountSelectedDetails.fromJson(Map<dynamic, dynamic> json){
+  factory AccountSelectedDetails.fromJson(Map<dynamic, dynamic> json) {
     return AccountSelectedDetails(id: json["id"], name: json["name"]);
   }
 }

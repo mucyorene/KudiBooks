@@ -16,7 +16,8 @@ import 'load_product_required_data.dart';
 import 'new_measure.dart';
 
 class NewProduct extends ConsumerStatefulWidget {
-  const NewProduct({Key? key}) : super(key: key);
+  int id;
+  NewProduct({Key? key, required this.id}) : super(key: key);
 
   @override
   ConsumerState<NewProduct> createState() => _NewProductState();
@@ -25,10 +26,8 @@ class NewProduct extends ConsumerStatefulWidget {
 class _NewProductState extends ConsumerState<NewProduct> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  final revenueAccountsProvider =
-      StateProvider<RevenueAccounts?>((ref) => null);
-  final inventoryExpenseAccountProvider =
-      StateProvider<InventoryExpenseAccounts?>((ref) => null);
+  final revenueAccountsProvider = StateProvider<RevenueAccounts?>((ref) => null);
+  final inventoryExpenseAccountProvider = StateProvider<InventoryExpenseAccounts?>((ref) => null);
 
   final revenueAccountController = TextEditingController();
   final inventoryExpenseAccountController = TextEditingController();
@@ -84,7 +83,18 @@ class _NewProductState extends ConsumerState<NewProduct> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(productToSellDetailsProvider.notifier).productItemDetails(widget.id);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    debugPrint("This is my id: ${widget.id}");
+    var initialData = ref.watch(productToSellDetailsProvider);
     return Scaffold(
       bottomNavigationBar: BottomAppBar(
           color: Colors.transparent,

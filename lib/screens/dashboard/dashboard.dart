@@ -108,18 +108,17 @@ class _DashboardState extends ConsumerState<Dashboard> {
                               color: Colors.white,
                             ),
                             cardColor: const Color(0xff157253),
-                            title: 'dashboard.home.sell'.tr(),
+                            title: const Text( "dashboard.home.sell",).tr(),
                             titleColor: Colors.white,
                           ),
                           ActionCard(
-                            actionClick: () =>
-                                context.pushNamed('createInventory'),
+                            actionClick: () => context.pushNamed('createInventory'),
                             cardIcon: const Icon(
                               Icons.shopping_cart_outlined,
                               color: Colors.white,
                             ),
                             cardColor: const Color(0xffA70C4A),
-                            title: 'dashboard.home.newLoad'.tr(),
+                            title: const Text( "dashboard.home.newLoad",).tr(),
                             titleColor: Colors.white,
                           ),
                           ActionCard(
@@ -131,7 +130,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                               color: Colors.white,
                             ),
                             cardColor: const Color(0xffFDAB30),
-                            title: 'dashboard.home.expenses'.tr(),
+                            title: const Text( "dashboard.home.expenses",).tr(),
                           ),
                           ActionCard(
                             titleColor: Colors.white,
@@ -148,7 +147,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                               color: Colors.white,
                             ),
                             cardColor: const Color(0xff61B76B),
-                            title: 'dashboard.home.more'.tr(),
+                            title: const Text( "dashboard.home.more",).tr(),
                           ),
                         ],
                       ),
@@ -159,7 +158,8 @@ class _DashboardState extends ConsumerState<Dashboard> {
                       alignment: AlignmentDirectional.centerStart,
                       child: const Text(
                         "dashboard.home.sales",
-                        style: TextStyle( fontSize: 17.0, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 17.0, fontWeight: FontWeight.bold),
                       ).tr(),
                     ),
                     // Container(

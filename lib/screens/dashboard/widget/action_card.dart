@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ActionCard extends StatelessWidget {
   Color? cardColor;
   Icon? cardIcon;
-  String title;
+  Widget title;
   bool? isBordered;
   Function()? actionClick;
   Color? titleColor;
@@ -72,10 +72,8 @@ class ActionCard extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Text(
-                  title,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w600, color: titleColor),
+                Container(
+                  child: title
                 )
               ],
             ),

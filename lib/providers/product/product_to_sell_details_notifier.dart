@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,10 +23,15 @@ class ProductToSellDetailsNotifier extends StateNotifier<NetworkInfo<ItemToSellD
     state=NetworkInfo(networkStatus: NetworkStatus.loading);
    try{
      Response response = await _dio.get("${DioServices.baseUrl}app/product-to-sell/edit/$id",options: Options(headers: mainHeader));
-     debugPrint("Product details response: ${response.data}");
+
      var productDetails = ItemToSellDetails.fromJson(response.data);
-     var itemDetails = NetworkInfo<ItemToSellDetails>(networkStatus: NetworkStatus.success, statusCode: 200);
+
+     debugPrint("Product details response: ${productDetails.productSelectedDetails?.name}");
+
+     var itemDetails = NetworkInfo<ItemToSellDetails>(networkStatus: NetworkStatus.success, data: productDetails, statusCode: 200);
+
      state=itemDetails;
+
    }on DioError catch(e){
      debugPrint("${e.response?.statusMessage}");
      var errorInfo = ErrorHandler.handleError<ItemToSellDetails>(e);

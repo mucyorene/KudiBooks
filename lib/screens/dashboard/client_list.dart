@@ -380,14 +380,12 @@ class _ClientListState extends ConsumerState<ClientList> {
                                           builder: (deleteContext) {
                                             return AlertDialog(
                                               title: const Text('Are you sure?'),
-                                              content: const Text(
-                                                  "Do you want to remove this client"),
+                                              content: const Text( "Do you want to remove this client"),
                                               actions: <Widget>[
                                                 TextButton(
                                                   child: const Text('No'),
                                                   onPressed: () {
-                                                    Navigator.of(deleteContext)
-                                                        .pop(); // Dismiss alert dialog
+                                                    Navigator.of(deleteContext).pop(); // Dismiss alert dialog
                                                   },
                                                 ),
                                                 TextButton(

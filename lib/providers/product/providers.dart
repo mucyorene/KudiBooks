@@ -14,6 +14,7 @@ import 'unit_of_measure.dart';
 //Products
 final productToSellRequiredDataProvider = StateNotifierProvider<ProductRequiredData, NetworkInfo<RequiredDataProduct>>((ref) => ProductRequiredData());
 final createProductProvider = StateNotifierProvider<ProductNotifier, NetworkInfo<List<ProductSellModel>>>((ref) => ProductNotifier());
+final removeProductProvider = StateNotifierProvider<ProductNotifier, NetworkInfo<List<ProductSellModel>>>((ref) => ProductNotifier());
 final allProductProvider = StateNotifierProvider<RetrieveProductNotifier, NetworkInfo<List<RetrieveProductModel>>>((ref) => RetrieveProductNotifier());
 final productToSellDetailsProvider = StateNotifierProvider<ProductToSellDetailsNotifier, NetworkInfo<ItemToSellDetails>>((ref) => ProductToSellDetailsNotifier());
 
